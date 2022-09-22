@@ -1,0 +1,36 @@
+<%- include('partials/header') -%>
+<div class="container">
+  <div class="row mt-5">
+      <div class="col-6">
+          <div>
+            <h1>admin profile</h1>
+              <p><strong>User Name</strong>: <%= user.userName %></p>
+              <p><strong>Email</strong>: <%= user.email %></p>
+              <a href="/logout" class="col-3 btn btn-primary">Logout</a>
+          </div>
+          
+
+          <select name = "">
+            <% for(var i=0; i<staff.length; i++) {%>
+              <option value="<%=staff[i].userName%>"><%=staff[i].userName%></option>
+            <% } %>
+            </select>
+
+      </div>
+      <div class="col-6">
+        <ul class="row list-unstyled">
+        <% for(var i=0; i<tasks.length; i++) {%>
+          <li class="col-6 justify-content-between mt-5">
+            <%= tasks[i]._id%>
+            <select name = "">
+            <% for(var i=0; i<staff.length; i++) {%>
+              <option value="<%= staff[i].userName%>><%= staff[i].userName%></option>
+            <% } %>
+            </select>
+          </li>
+        <% } %>
+        </ul> 
+      </div>  
+    </div>
+  </div>
+<%- include('partials/footer') -%>
