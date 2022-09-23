@@ -13,7 +13,7 @@ module.exports = {
       if (req.user.role === 'admin') {
         res.render("profileAdmin.ejs", { tasks: tasks, user: req.user, staff: activeStaff });
       } else {
-        res.render("profileStaff.ejs", { tasks: tasks, user: req.user, staff: activeStaff })
+        res.redirect("/staff" )
       }
 
     } catch (err) {
@@ -27,7 +27,9 @@ module.exports = {
       const staffMembers = await Staff.find({ adminId: req.user.id });
 
       // rendering profile page with the data from the DB
-      res.render("adminStaffMenu.ejs", { staff: staffMembers });
+      if (req.user.role === 'admin') {
+        res.render("adminStaffMenu.ejs", { staff: staffMembers });
+      }
     } catch (err) {
       console.log(err);
     }
