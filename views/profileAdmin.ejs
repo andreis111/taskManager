@@ -3,25 +3,29 @@
   <div class="row mt-5">
       <div class="col-6">
           <div>
+            
             <h1>admin profile</h1>
               <p><strong>User Name</strong>: <%= user.userName %></p>
               <p><strong>Email</strong>: <%= user.email %></p>
+
+              <!-- //logout button -->
               <a href="/logout" class="col-3 btn btn-primary">Logout</a>
           </div>
-          
-
-          <select name = "">
-            <% for(var i=0; i<staff.length; i++) {%>
-              <option value="<%=staff[i].userName%>"><%=staff[i].userName%></option>
-            <% } %>
-            </select>
-
       </div>
+    </div>
+      
+      <!-- Tasks list + dropdown staff -->
       <div class="col-6">
+        <h2>TASKS LIST</h2>
         <ul class="row list-unstyled">
         <% for(var i=0; i<tasks.length; i++) {%>
           <li class="col-6 justify-content-between mt-5">
-            <%= tasks[i]._id%>
+            <p class="lead">Title: <%= tasks[i].title%></p>
+            <p class="lead">Description: <%= tasks[i].description%></p>
+            <p class="lead">Location: <%= tasks[i].location%></p>
+            <p class="lead">Importance: <%= tasks[i].importance%></p>
+            <p class="lead">Created: <%= tasks[i].createdDate%></p>
+            <p class="lead">Category: <%= tasks[i].category%></p>
             <select name = "">
             <% for(var i=0; i<staff.length; i++) {%>
               <option value="<%= staff[i].userName%>><%= staff[i].userName%></option>
@@ -30,8 +34,14 @@
           </li>
         <% } %>
         </ul> 
-      </div>  
+    
+      </div>
+    </div>
     </div>
     <a href="/admin/staff" class="col-3 btn btn-primary">Staff menu</a>
-  </div>
+</div>
+  <a href="/admin/staff" class="col-3 btn btn-primary">Staff menu</a>
+
+
+
 <%- include('partials/footer') -%>
