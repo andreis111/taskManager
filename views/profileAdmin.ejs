@@ -1,47 +1,57 @@
 <%- include('partials/header') -%>
 <div class="container">
-  <div class="row mt-5">
+  <div class="row">
       <div class="col-6">
+        <a href="/admin/staff" class="col-3 btn btn-primary">Staff menu</a>
           <div>
-            
             <h1>admin profile</h1>
               <p><strong>User Name</strong>: <%= user.userName %></p>
               <p><strong>Email</strong>: <%= user.email %></p>
-
-              <!-- //logout button -->
               <a href="/logout" class="col-3 btn btn-primary">Logout</a>
           </div>
+
       </div>
+ 
     </div>
-      
-      <!-- Tasks list + dropdown staff -->
-      <div class="col-6">
-        <h2>TASKS LIST</h2>
-        <ul class="row list-unstyled">
-        <% for(var i=0; i<tasks.length; i++) {%>
-          <li class="col-6 justify-content-between mt-5">
-            <p class="lead">Title: <%= tasks[i].title%></p>
-            <p class="lead">Description: <%= tasks[i].description%></p>
-            <p class="lead">Location: <%= tasks[i].location%></p>
-            <p class="lead">Importance: <%= tasks[i].importance%></p>
-            <p class="lead">Created: <%= tasks[i].createdDate%></p>
-            <p class="lead">Category: <%= tasks[i].category%></p>
-            <select name = "">
-            <% for(var i=0; i<staff.length; i++) {%>
-              <option value="<%= staff[i].userName%>><%= staff[i].userName%></option>
-            <% } %>
-            </select>
+
+    <h2 class="text-primary mt-4">TASKS</h2>
+    <div class="col-6">
+
+      <!-- Loop going through tasks collection-->
+      <ul class="row list-unstyled">
+        <% for(task of tasks) {%>
+  
+          <!-- li with task info -->
+          <li class="col-6 justify-content-between">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title  text-center"> Title: <%=task.title%></p>
+                <p class="card-text"> Description: <%=task.description%></p>
+                <p class="card-text"> Location: <%=task.location%></p>
+                <p class="card-text"> Importance: <%=task.importance%></p>
+                <p class="card-text"> Created: <%=task.createdDate%></p>
+                <p class="card-text"> Category: <%=task.category%></p>
+                <p class="card-text"> Category: <%=task.doneDate%></p>
+               
+                <div class="row">
+                  <form action="/staff/assignJob/<%=task._id%>"  method="POST" class="order-last">
+                  <button type="submit" class="btn btn-sm btn-secondary">Assign</button>
+                  </form>
+  
+                  <!-- Dropdown going through staff collection -->
+                  <select class="card-text order-first" name = "assign">
+                    <option value="default">Select a staff member</option>
+                  <% for(member of staff) {%>
+                    <option value="<%=member.userName%>"><%=member.userName%></option>
+                  <% } %>
+                  </select>
+                </div> <!-- End of div row -->
+              </div> <!-- End of div card-body -->
+            </div> <!-- End of div card -->
           </li>
         <% } %>
         </ul> 
-    
-      </div>
     </div>
-    </div>
-    <a href="/admin/staff" class="col-3 btn btn-primary">Staff menu</a>
-</div>
-  <a href="/admin/staff" class="col-3 btn btn-primary">Staff menu</a>
-
-
-
+  </div> 
+  
 <%- include('partials/footer') -%>

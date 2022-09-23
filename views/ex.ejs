@@ -1,0 +1,30 @@
+        <li class="col-6 justify-content-between">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-title  text-center"> Title: <%=tasks[i].title%></p>
+              <p class="card-text"> Description: <%=tasks[i].description%></p>
+              <p class="card-text"> Location: <%=tasks[i].location%></p>
+              <p class="card-text"> Importance: <%=tasks[i].importance%></p>
+              <p class="card-text"> Created: <%=tasks[i].createdDate%></p>
+              <p class="card-text"> Category: <%=tasks[i].category%></p>
+              <p class="card-text"> Category: <%=tasks[i].doneDate%></p>
+             
+              <div class="row">
+                <form action="/staff/assignJob/<%=tasks[i]._id%>"  method="POST" class="order-last">
+                <button type="submit" class="btn btn-sm btn-secondary">Assign</button>
+                </form>
+                <select class="card-text order-first" name = "assign">
+                  <option value="default">Select a staff member</option>
+                <% for(var i=0; i<staff.length; i++) {%>
+                  <option value="<%=staff[i].userName%>"><%=staff[i].userName%></option>
+                <% } %>
+                </select>
+              </div>
+
+              
+
+            </div>
+            
+          </div>
+
+        </li>
