@@ -35,11 +35,11 @@
                 <p class="card-text"> Importance: <%=task.importance%></p>
                 <p class="card-text"> Created: <%=task.createdDate%></p>
                 <p class="card-text"> Category: <%=task.category%></p>
-                <p class="card-text"> Category: <%=task.doneDate%></p>
+               
                
                 <div class="row">
                   <!-- Dropdown going through staff collection -->
-                  <form action="/staff/assignJob/<%=task._id%>?_method=PUT"  method="POST">
+                  <form action="/admin/assignJob/<%=task._id%>?_method=PUT"  method="POST">
                   <select class="card-text" name = "assign">
                     <option value="default">Select a staff member</option>
                   <% for(member of staff) {%>

@@ -71,9 +71,9 @@ exports.postSignup = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });
-  if (!validator.isLength(req.body.password, { min: 8 }))
+  if (!validator.isLength(req.body.password, { min: 4 }))
     validationErrors.push({
-      msg: "Password must be at least 8 characters long",
+      msg: "Password must be at least 4 characters long",
     });
   if (req.body.password !== req.body.confirmPassword)
     validationErrors.push({ msg: "Passwords do not match" });
@@ -124,9 +124,9 @@ exports.createStaff = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });
-  if (!validator.isLength(req.body.password, { min: 8 }))
+  if (!validator.isLength(req.body.password, { min: 4 }))
     validationErrors.push({
-      msg: "Password must be at least 8 characters long",
+      msg: "Password must be at least 4 characters long",
     });
   if (req.body.password !== req.body.confirmPassword)
     validationErrors.push({ msg: "Passwords do not match" });
@@ -146,7 +146,7 @@ exports.createStaff = (req, res, next) => {
     category: req.body.category,
     active: true,
     role: req.body.role,
-    adminId: req.user.id
+    adminId: req.user._id
   });
 
   Staff.findOne(

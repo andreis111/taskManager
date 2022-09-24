@@ -4,6 +4,13 @@
   <div>
     <p><strong>User Name</strong>: <%= user.userName %></p>
     <p><strong>Email</strong>: <%= user.email %></p>
+    <a href="/staff/createNewTask/" class="col-3 btn btn-primary">Create new TASK</a>
+    <% for(task of tasks) {%>
+      <li class="col-6 justify-content-between mt-5">
+       <a href="/staff/task/<%=task._id%>"> <%= task.title%> - <%= task.importance%></a>
+      </li>
+    <% } %>
+
     <a href="/logout" class="col-3 btn btn-primary">Logout</a>
 </div>
   </div>
