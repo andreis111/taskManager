@@ -13,3 +13,4 @@ Staff can create tasks to report issues/problems found in and outside business p
 - sort tasks by importance/date/staffId/category/etc
 - color tasks by importance
 - proper README
+- staff list sorted by categories
