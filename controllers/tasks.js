@@ -6,7 +6,7 @@ module.exports = {
     try {
       const task = await Task.findById(req.params.id);
       console.log(task);
-      res.render("tasks.ejs", {
+      res.render("task.ejs", {
       });
     } catch (err) {
       console.log(err);
@@ -15,10 +15,9 @@ module.exports = {
 
   getStaff: async (req, res) => {
     try {
-      const tasks = await Task.find({ adminId: req.user.id }).sort({ createdAt: "desc" }).lean();
-      const activeStaff = await User.find({ active: true, role: 'staff' }).lean()
-
-      res.render("profileStaff.ejs", { tasks: tasks, user: req.user, staff: activeStaff })
+      const tasks = await Task.find({ completedBy: req.user.id }).sort({ createdAt: "asc"  }).lean();
+      
+      res.render("profileStaff.ejs", { tasks: tasks, user: req.user })
 
     } catch (err) {
       console.log(err);
@@ -40,28 +39,30 @@ module.exports = {
     }
   },
 
-  assignJob: async (req, res) => {
+  
+  createTask: async (req, res)=>{
+      try{
+        await Task.create({
+            title: req.body.title,
+            description: req.body.description,
+            location: req.body.location,
+            importance: req.body.importance,
+            category: req.body.category,
+            createdDate: new Date(),
+            completed: false,
+            adminId: req.params.id
+          })
+          console.log('Task has been added!')
+          res.redirect('/staff/')
+      }catch(err){
+          console.log(err)
+      }
+  },
+  getCreateTask: async (req, res) => {
     try {
-      await Task.findOneAndUpdate(
-        { _id: req.params.id },
-        {
-          completedBy: req.body.assign,
-          assignedDate: new Date()
-        }
-      );
-      console.log(`Assigned to ${req.body.assign}`);
-      res.redirect(`/admin/`);
+      res.render("createNewTask.ejs", {user: req.user});
     } catch (err) {
       console.log(err);
     }
   },
-  // createTodo: async (req, res)=>{
-  //     try{
-  //         await Todo.create({todo: req.body.todoItem, completed: false, userId: req.user.id})
-  //         console.log('Todo has been added!')
-  //         res.redirect('/todos')
-  //     }catch(err){
-  //         console.log(err)
-  //     }
-  // },
 };

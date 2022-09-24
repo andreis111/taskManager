@@ -8,8 +8,9 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 //Main Routes - simplified for now
 
 router.get("/", ensureAuth, adminController.getFeed);
-router.get("/staff", adminController.getStaff);
+router.get("/staff", adminController.getStaffFeed);
 router.get("/tasksCompleted", adminController.getTasksCompleted);
 router.post("/createStaff", authController.createStaff);
+router.put("/assignJob/:id", adminController.assignJob);
 
 module.exports = router;

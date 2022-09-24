@@ -4,10 +4,12 @@ const tasksController = require("../controllers/tasks");
 const { ensureAuth } = require('../middleware/auth')
 
 router.get('/', ensureAuth, tasksController.getStaff)
-router.get("/todo/:id", tasksController.getTasks);
-// router.post("/createTodo", todosController.createTodo);
+router.get("/task/:id", tasksController.getTasks);
+router.post("/createNewTask/:id", tasksController.createTask);
+router.get("/createNewTask", tasksController.getCreateTask);
 
-router.put("/todo/markComplete/:id", tasksController.markComplete);
-router.put("/assignJob/:id", tasksController.assignJob);
+router.put("/task/markComplete/:id", tasksController.markComplete);
+
+
 
 module.exports = router;

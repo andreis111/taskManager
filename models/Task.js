@@ -38,12 +38,11 @@ completed: {
     required: true,
 },
 completedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Staff'
+    type: String,
 },
 adminId: {
-    type: String,
-    ref: "Admin",
+    type: mongoose.Schema.Types.ObjectId,
+    
 },
 
 })

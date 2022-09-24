@@ -5,7 +5,9 @@ module.exports = {
 
   getFeed: async (req, res) => {
     try {
-      const tasks = await Task.find({completedBy: null}).sort({createdDate: 'desc'}).lean();
+      const staff = await Staff.find({adminId: req.user.id}).lean()
+      console.log(staff);
+      const tasks = await Task.find({completedBy: null, adminId: staff.id}).sort({createdDate: 'desc'}).lean();
       const activeStaff = await Staff.find({ active: true, role: 'staff', adminId: req.user.id }).lean()
       if (req.user.role === 'admin') {
         res.render("profileAdmin.ejs", { tasks: tasks, user: req.user, staff: activeStaff });
@@ -18,7 +20,7 @@ module.exports = {
     }
   },
 
-  getStaff: async (req, res) => {
+  getStaffFeed: async (req, res) => {
     try {
       // finding all the staff with the associed id
       const staffMembers = await Staff.find({ adminId: req.user.id });
@@ -48,6 +50,21 @@ module.exports = {
         res.redirect("/staff" )
       }
 
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  assignJob: async (req, res) => {
+    try {
+      await Task.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          completedBy: req.body.assign,
+          assignedDate: new Date()
+        }
+      );
+      console.log(`Assigned to ${req.body.assign}`);
+      res.redirect(`/admin/`);
     } catch (err) {
       console.log(err);
     }
