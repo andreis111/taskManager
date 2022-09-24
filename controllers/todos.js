@@ -39,6 +39,22 @@ module.exports = {
       console.log(err);
     }
   },
+
+  assignJob: async (req, res) => {
+    try {
+      await Todo.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          completedBy: req.body.assign,
+          assignedDate: new Date()
+        }
+      );
+      console.log(`Assigned to ${req.body.assign}`);
+      res.redirect(`/admin/`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
   // createTodo: async (req, res)=>{
   //     try{
   //         await Todo.create({todo: req.body.todoItem, completed: false, userId: req.user.id})

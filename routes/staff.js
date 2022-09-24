@@ -8,6 +8,6 @@ router.get("/todo/:id", todosController.getTodos);
 // router.post("/createTodo", todosController.createTodo);
 
 router.put("/todo/markComplete/:id", todosController.markComplete);
-router.put("/assignJob/:id", todosController.markComplete);
+router.put("/assignJob/:id", todosController.assignJob);
 
 module.exports = router;

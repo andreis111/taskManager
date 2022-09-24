@@ -3,30 +3,50 @@ const mongoose = require("mongoose");
 const TodoSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
-  },
-  description: {
+    require: true,
+},
+description: {
     type: String,
-    required: true,
-  },
-  location: { type: String, required: true },
-  importance: { type: String, required: true },
-  createdDate: { type: Date, default: Date.now },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Staff",
-  },
-  completed: {
+    require: true,
+},
+location: {
+    type: String,
+    require: true,
+},
+importance: {
+    type: String,
+    require: true,
+},
+createdDate: {
+    type: Date,
+    default: Date.now,
+},
+category: {
+    type: String,
+    require: true,
+},
+assignedDate: {
+    type: Date,
+    default: Date.now,
+},
+doneDate: {
+    type: Date,
+    default: Date.now,
+},
+completed: {
     type: Boolean,
     required: true,
-  },
-  userId: {
+},
+completedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Staff'
+},
+adminId: {
     type: String,
-    required: true,
-  },
-  assignedDate: {
-    type: String,
-  },
-});
+    ref: "Admin",
+},
+
+})
+
 
 module.exports = mongoose.model("Todo", TodoSchema);
