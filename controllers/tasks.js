@@ -1,12 +1,12 @@
-const Todo = require("../models/Todo");
-const User = require("../models/User");
+const Task = require("../models/Task");
+const User = require("../models/Admin");
 
 module.exports = {
-  getTodos: async (req, res) => {
+  getTasks: async (req, res) => {
     try {
-      const task = await Todo.findById(req.params.id);
+      const task = await Task.findById(req.params.id);
       console.log(task);
-      res.render("todos.ejs", {
+      res.render("tasks.ejs", {
       });
     } catch (err) {
       console.log(err);
@@ -15,7 +15,7 @@ module.exports = {
 
   getStaff: async (req, res) => {
     try {
-      const tasks = await Todo.find({ adminId: req.user.id }).sort({ createdAt: "desc" }).lean();
+      const tasks = await Task.find({ adminId: req.user.id }).sort({ createdAt: "desc" }).lean();
       const activeStaff = await User.find({ active: true, role: 'staff' }).lean()
 
       res.render("profileStaff.ejs", { tasks: tasks, user: req.user, staff: activeStaff })
@@ -27,7 +27,7 @@ module.exports = {
 
   markComplete: async (req, res) => {
     try {
-      await Todo.findOneAndUpdate(
+      await Task.findOneAndUpdate(
         { _id: req.params.id },
         {
           completed: true,
@@ -35,6 +35,22 @@ module.exports = {
       );
       console.log("Marked Complete");
       res.redirect(`/staff/`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  assignJob: async (req, res) => {
+    try {
+      await Task.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          completedBy: req.body.assign,
+          assignedDate: new Date()
+        }
+      );
+      console.log(`Assigned to ${req.body.assign}`);
+      res.redirect(`/admin/`);
     } catch (err) {
       console.log(err);
     }

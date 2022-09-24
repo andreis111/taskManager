@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const todosController = require("../controllers/todos");
+const tasksController = require("../controllers/tasks");
 const { ensureAuth } = require('../middleware/auth')
 
-router.get('/', ensureAuth, todosController.getStaff)
-router.get("/todo/:id", todosController.getTodos);
+router.get('/', ensureAuth, tasksController.getStaff)
+router.get("/todo/:id", tasksController.getTasks);
 // router.post("/createTodo", todosController.createTodo);
 
-router.put("/todo/markComplete/:id", todosController.markComplete);
-router.put("/assignJob/:id", todosController.markComplete);
+router.put("/todo/markComplete/:id", tasksController.markComplete);
+router.put("/assignJob/:id", tasksController.assignJob);
 
 module.exports = router;

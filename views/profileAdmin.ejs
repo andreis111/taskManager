@@ -3,8 +3,9 @@
   <div class="row">
       <div class="col-6">
         <a href="/admin/staff" class="col-3 btn btn-primary">Staff menu</a>
+        <a href="/admin/tasksCompleted" class="col-3 btn btn-primary">Tasks done </a>
           <div>
-            <h1>admin profile</h1>
+            <h1>Admin Profile</h1>
               <p><strong>User Name</strong>: <%= user.userName %></p>
               <p><strong>Email</strong>: <%= user.email %></p>
               <a href="/logout" class="col-3 btn btn-primary">Logout</a>
@@ -14,9 +15,12 @@
  
     </div>
 
-    <h2 class="text-primary mt-4">TASKS</h2>
-    <div class="col-6">
+    <h2 class="text-primary mt-4">TASKS TO DO</h2>
+    <span>Taskurile assigned si uncompleted nu apar nicaieri. Fiecare isi face cum ii place :))</span>
+    <p>Verificat in Todo.js model adminId: type string</p>
 
+
+    <div class="col-6">
       <!-- Loop going through tasks collection-->
       <ul class="row list-unstyled">
         <% for(task of tasks) {%>
@@ -34,17 +38,20 @@
                 <p class="card-text"> Category: <%=task.doneDate%></p>
                
                 <div class="row">
-                  <form action="/staff/assignJob/<%=task._id%>"  method="POST" class="order-last">
-                  <button type="submit" class="btn btn-sm btn-secondary">Assign</button>
-                  </form>
-  
                   <!-- Dropdown going through staff collection -->
-                  <select class="card-text order-first" name = "assign">
+                  <form action="/staff/assignJob/<%=task._id%>?_method=PUT"  method="POST">
+                  <select class="card-text" name = "assign">
                     <option value="default">Select a staff member</option>
                   <% for(member of staff) {%>
-                    <option value="<%=member.userName%>"><%=member.userName%></option>
+                    <option value="<%=member._id%>"><%=member.userName%> - <%=member.category%></option>
                   <% } %>
                   </select>
+
+                  <!-- Assign button (POST override)-->
+                  
+                    <button type="submit" class="btn btn-sm btn-secondary">Assign</button>
+                  </form>
+
                 </div> <!-- End of div row -->
               </div> <!-- End of div card-body -->
             </div> <!-- End of div card -->
