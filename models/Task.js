@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const TodoSchema = new mongoose.Schema({
+const TaskSchema = new mongoose.Schema({
   title: {
     type: String,
     require: true,
@@ -49,4 +49,4 @@ adminId: {
 })
 
 
-module.exports = mongoose.model("Todo", TodoSchema);
+module.exports = mongoose.model("Task", TaskSchema);

@@ -1,11 +1,11 @@
-const Todo = require("../models/Todo");
+const Task = require("../models/Task");
 const Staff = require("../models/Staff");
 
 module.exports = {
 
   getFeed: async (req, res) => {
     try {
-      const tasks = await Todo.find({completedBy: null}).sort({createdDate: 'desc'}).lean();
+      const tasks = await Task.find({completedBy: null}).sort({createdDate: 'desc'}).lean();
       const activeStaff = await Staff.find({ active: true, role: 'staff', adminId: req.user.id }).lean()
       if (req.user.role === 'admin') {
         res.render("profileAdmin.ejs", { tasks: tasks, user: req.user, staff: activeStaff });
@@ -34,7 +34,7 @@ module.exports = {
   
   getTasksCompleted: async (req, res) => {
     try {
-      const tasks = await Todo.find({ completed: true }).sort({ createdDate: 'desc' }).lean();
+      const tasks = await Task.find({ completed: true }).sort({ createdDate: 'desc' }).lean();
       console.log(tasks);
       const staff = []
       for (task of tasks) {
